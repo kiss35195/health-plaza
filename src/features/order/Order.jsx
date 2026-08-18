@@ -1,3 +1,5 @@
+import CartList from "../cart/CartList";
+
 // 假資料
 const recipes = [
   {
@@ -140,72 +142,27 @@ const order = {
   ],
 };
 
-const summaryPrice = order.detail.reduce(
-  (sum, item) =>
-    sum + recipes.find((recipe) => recipe.id === item.id).price * item.quantity,
-  0,
-);
-
-const limitPrice = order.detail.reduce((sum, item) => {
-  const recipe = recipes.find((recipe) => recipe.id === item.id);
-  return (
-    sum +
-    (recipe.limitPrice > 0
-      ? recipe.limitPrice * item.quantity
-      : recipe.price * item.quantity)
-  );
-}, 0);
-
-const totalPrice = limitPrice > 999 ? limitPrice : limitPrice + 60;
-
 function Order() {
+  const createDate = new Date(order.createDateTime.replace(/\//g, "-"));
+  const oneDayAfter = new Date(createDate);
+  oneDayAfter.setDate(oneDayAfter.getDate() + 1);
+  const now = new Date();
+  const isDelivered = now > oneDayAfter;
+
   return (
-    <div>
-      <div>
-        <p>已送達</p>
+    <div className="p-4">
+      <div className="flex flex-col justify-between md:flex-row-reverse md:items-center">
+        <p
+          className={`w-fit rounded-2xl px-3 py-2 text-white ${isDelivered ? "bg-green-500" : "bg-red-500"}`}
+        >
+          {isDelivered ? "已送達" : "處理中"}
+        </p>
         <div>
           <p>訂單編號 #{order.id}</p>
           <p>下訂時間: {order.createDateTime}</p>
         </div>
       </div>
-      <div>
-        <div>
-          <div>刪除</div>
-          <div>圖片</div>
-          <div>名稱</div>
-          <div>數量</div>
-          <div>單價</div>
-          <div>金額</div>
-        </div>
-        <ul>
-          {order.detail.map((item) => {
-            const recipe = recipes.find((recipes) => recipes.id === item.id);
-            return (
-              <li key={recipe.id}>
-                <button>❌</button>
-                <img src={recipe.img}></img>
-                <p>{recipe.recipeName}</p>
-                <p>x{item.quantity}</p>
-                <p>{recipe.price}元</p>
-                <p>
-                  {recipe.limitPrice > 0
-                    ? recipe.limitPrice * item.quantity
-                    : recipe.price * item.quantity}
-                  元
-                </p>
-              </li>
-            );
-          })}
-        </ul>
-        <div>
-          <div>小計</div>
-          <div>{limitPrice !== summaryPrice ? limitPrice : summaryPrice}元</div>
-        </div>
-        <div>
-          <div>含運費總計(滿千免運)</div>
-          <div>{totalPrice}元</div>
-        </div>
-      </div>
+      <CartList editType={false} recipes={recipes} cart={order.detail} />
     </div>
   );
 }

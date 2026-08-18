@@ -1,3 +1,6 @@
+import CartList from "./CartList";
+import CartOwner from "./CartOwner";
+
 // 假資料
 const recipes = [
   {
@@ -133,89 +136,11 @@ const cart = [
   },
 ];
 
-const summaryPrice = cart.reduce(
-  (sum, item) =>
-    sum + recipes.find((recipe) => recipe.id === item.id).price * item.quantity,
-  0,
-);
-
-const limitPrice = cart.reduce((sum, item) => {
-  const recipe = recipes.find((recipe) => recipe.id === item.id);
-  return (
-    sum +
-    (recipe.limitPrice > 0
-      ? recipe.limitPrice * item.quantity
-      : recipe.price * item.quantity)
-  );
-}, 0);
-
-const totalPrice = limitPrice > 999 ? limitPrice : limitPrice + 60;
-
 function Cart() {
   return (
-    <div>
-      <div>
-        <div>
-          <div>刪除</div>
-          <div>圖片</div>
-          <div>名稱</div>
-          <div>數量</div>
-          <div>單價</div>
-          <div>金額</div>
-        </div>
-        <ul>
-          {cart.map((item) => {
-            const recipe = recipes.find((recipes) => recipes.id === item.id);
-            return (
-              <li>
-                <button>❌</button>
-                <img width={200} src={recipe.img}></img>
-                <p>{recipe.recipeName}</p>
-                <button>－</button>
-                <span>1</span>
-                <button>＋</button>
-                <p>{recipe.price}元</p>
-                <p>
-                  {recipe.limitPrice > 0
-                    ? recipe.limitPrice * item.quantity
-                    : recipe.price * item.quantity}
-                  元
-                </p>
-              </li>
-            );
-          })}
-        </ul>
-        <div>
-          <div>小計</div>
-          <div>{limitPrice !== summaryPrice ? limitPrice : summaryPrice}元</div>
-        </div>
-        <div>
-          <div>含運費總計(滿千免運)</div>
-          <div>{totalPrice}元</div>
-        </div>
-      </div>
-      <form>
-        <div>
-          <label>訂購者姓名</label>
-          <input type="text" name="customer" required placeholder="必填" />
-
-          <label>聯絡電話</label>
-          <input
-            type="tel"
-            name="phone"
-            pattern="^09\d{8}$"
-            required
-            maxLength={10}
-            placeholder="e.g. 0987654321"
-          />
-
-          <label>宅配地址</label>
-          <input type="text" name="address" required placeholder="必填" />
-        </div>
-        <div>
-          <button>送出訂單</button>
-        </div>
-      </form>
+    <div className="flex flex-col scroll-auto p-4">
+      <CartList editType={true} recipes={recipes} cart={cart} />
+      <CartOwner />
     </div>
   );
 }

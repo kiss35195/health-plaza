@@ -4,10 +4,10 @@ import Footer from "../components/Footer";
 
 function AppLayout() {
   return (
-    <div>
+    <div className="grid h-dvh grid-rows-[auto_1fr_auto]">
       <Header />
-      <div>
-        <main>
+      <div className="h-full bg-lime-50 tracking-wide text-lime-700">
+        <main className="relative flex h-full w-full items-center justify-center">
           <Outlet />
         </main>
       </div>

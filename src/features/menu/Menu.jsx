@@ -1,3 +1,5 @@
+import MenuItem from "./MenuItem";
+
 // 假資料
 const recipes = [
   {
@@ -123,45 +125,9 @@ const recipes = [
 
 function Menu() {
   return (
-    <ul>
+    <ul className="w-full gap-4 divide-y divide-lime-700 p-4 md:grid md:grid-cols-3 md:divide-y-0 md:px-20">
       {recipes.map((recipe) => (
-        <li key={recipe.id}>
-          <div>
-            <img width={200} src={recipe.img}></img>
-            <p>
-              圖片來源：
-              <a href="https://unsplash.com" target="_blank">
-                Unsplash
-              </a>
-            </p>
-          </div>
-          <div>
-            <>
-              {recipe.limitToday && (
-                <>
-                  <span>🔥</span>
-                  <span>今日限定菜單</span>
-                </>
-              )}
-              {recipe.limitPrice && (
-                <>
-                  <span>🔥</span>
-                  <span>今日限定優惠</span>
-                </>
-              )}
-              <p>{recipe.recipeName}</p>
-              <div>
-                <p>{recipe.introduce}</p>
-                <div>
-                  <button>－</button>
-                  <span>1</span>
-                  <button>＋</button>
-                  <button>加到購物車</button>
-                </div>
-              </div>
-            </>
-          </div>
-        </li>
+        <MenuItem key={recipe.id} recipe={recipe} page="menu" />
       ))}
     </ul>
   );
