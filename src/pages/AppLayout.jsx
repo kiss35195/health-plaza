@@ -1,14 +1,33 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Toast from "../components/Toast";
+import { useState } from "react";
 
 function AppLayout() {
+  const [showToast, setShowToast] = useState(false);
+  const [content, setContent] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  function triggerToast(text, status = true) {
+    setShowToast(true);
+    setContent(text);
+    setSuccess(status);
+
+    setTimeout(() => {
+      setShowToast(false);
+    }, 1500);
+  }
+
   return (
     <div className="grid h-dvh grid-rows-[auto_1fr_auto]">
       <Header />
       <div className="h-full bg-lime-50 tracking-wide text-lime-700">
         <main className="relative flex h-full w-full items-center justify-center">
-          <Outlet />
+          <Toast showToast={showToast} success={success}>
+            {content}
+          </Toast>
+          <Outlet context={{ triggerToast }} />
         </main>
       </div>
       <Footer />

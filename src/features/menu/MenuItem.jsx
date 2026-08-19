@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 import { updItem } from "../cart/cartSlice";
 import Button from "../../components/Button";
 import Serving from "../../components/Serving";
@@ -10,6 +11,7 @@ const limitClass =
 function MenuItem({ recipe, page }) {
   const [serving, setServing] = useState(1);
   const dispatch = useDispatch();
+  const { triggerToast } = useOutletContext();
 
   function handleDec() {
     if (serving === 1) return;
@@ -27,6 +29,7 @@ function MenuItem({ recipe, page }) {
     };
     dispatch(updItem(newItem));
     setServing(1);
+    triggerToast("加入購物車成功", true);
   }
 
   return (

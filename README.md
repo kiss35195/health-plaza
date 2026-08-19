@@ -37,7 +37,8 @@ src/
 │   ├── Footer.jsx          # 頁尾版權聲明元件
 │   ├── Header.jsx          # 頁首導覽列
 │   ├── Loader.jsx          # 載入中動畫元件
-│   └── Serving.jsx         # 數量加減控制元件
+│   ├── Serving.jsx         # 數量加減控制元件
+│   └── Toast.jsx           # 訊息提示元件
 ├── 🍱 features/            # 依功能劃分之元件與邏輯
 │   ├── cart/               # 購物車功能模組
 │   │   ├── Cart.jsx        # 購物車頁面

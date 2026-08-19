@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { getCart, clearCart } from "./cartSlice";
 import Button from "../../components/Button";
 import { createOrder } from "../../services/apiHealthPlaza";
@@ -17,6 +17,7 @@ function CartOwner() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cart = useSelector(getCart);
+  const { triggerToast } = useOutletContext();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -49,10 +50,11 @@ function CartOwner() {
       const data = await createOrder(newOrder);
       if (data && data.id) {
         dispatch(clearCart());
+        triggerToast("訂單已成立", true);
         navigate(`/order/${data.id}`);
       }
     } catch (e) {
-      console.error(e);
+      triggerToast("送出訂單失敗", false);
     } finally {
       setIsSubmitting(false);
     }
