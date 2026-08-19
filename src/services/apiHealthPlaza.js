@@ -9,7 +9,7 @@ export async function getRecipes() {
     const data = await res.json();
     return data;
   } catch (err) {
-    throw Error("取得食譜發生錯誤");
+    throw Error("取得食譜發生錯誤", { cause: err });
   }
 }
 
@@ -22,7 +22,7 @@ export async function getOrder(id) {
     const data = await res.json();
     return data;
   } catch (err) {
-    throw Error("取得訂單發生錯誤");
+    throw Error("取得訂單發生錯誤", { cause: err });
   }
 }
 
@@ -39,6 +39,6 @@ export async function createOrder(newOrder) {
     const data = await res.json();
     return data;
   } catch (err) {
-    throw Error("取得食譜發生錯誤");
+    throw Error("建立訂單發生錯誤", { cause: err });
   }
 }
