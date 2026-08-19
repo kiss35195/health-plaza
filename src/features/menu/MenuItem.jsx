@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updItem } from "../cart/cartSlice";
 import Button from "../../components/Button";
 import Serving from "../../components/Serving";
 
@@ -7,6 +9,25 @@ const limitClass =
 
 function MenuItem({ recipe, page }) {
   const [serving, setServing] = useState(1);
+  const dispatch = useDispatch();
+
+  function handleDec() {
+    if (serving === 1) return;
+    setServing((s) => s - 1);
+  }
+  function handleInc() {
+    if (page === "doit" && serving === 10) return;
+    setServing((s) => s + 1);
+  }
+  function handleUpd() {
+    const newItem = {
+      id: recipe.id,
+      price: recipe.limitPrice > 0 ? recipe.limitPrice : recipe.price,
+      quantity: serving,
+    };
+    dispatch(updItem(newItem));
+    setServing(1);
+  }
 
   return (
     <li className="mt-2 flex w-full flex-col md:mt-0 md:flex-row">
@@ -45,8 +66,15 @@ function MenuItem({ recipe, page }) {
               <p className="py-2 md:py-5">{recipe.introduce}</p>
             )}
             <div>
-              <Serving serving={serving} unit={page === "doit" ? "份" : ""} />
-              {page === "menu" && <Button>加到購物車</Button>}
+              <Serving
+                serving={serving}
+                unit={page === "doit" ? "份" : ""}
+                onDec={handleDec}
+                onInc={handleInc}
+              />
+              {page === "menu" && (
+                <Button action={handleUpd}>加到購物車</Button>
+              )}
               {page === "doit" &&
                 recipe.ingredients.map((ingredient, i) => (
                   <p className="pl-2" key={i}>

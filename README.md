@@ -20,12 +20,16 @@
 - **前端核心**：React
 - **頁面跳轉**：React Router
 - **樣式設計**：Tailwind CSS
+- **狀態管理**：React Redux, Redux Toolkit
+- **模擬 API 伺服器**：JSON Server
 
 ---
 
 ## 📂 專案資料夾結構
 
 ```text
+data/
+├── healthPlaza.json        # 預設餐點與訂單資料
 src/
 ├── 🧩 components/          # 通用 UI 元件
 │   ├── Button.jsx          # 通用按鈕元件
@@ -39,7 +43,9 @@ src/
 │   │   ├── Cart.jsx        # 購物車頁面
 │   │   ├── CartItem.jsx    # 購物車單項商品元件
 │   │   ├── CartList.jsx    # 購物車列表元件
-│   │   └── CartOwner.jsx   # 訂購資料表單
+│   │   ├── CartOwner.jsx   # 訂購資料表單
+│   │   ├── cartSlice.js    # 購物車狀態與 Action 控制
+│   │   └── EmptyCart.jsx   # 購物車空狀態顯示元件
 │   ├── menu/               # 菜單功能模組
 │   │   ├── Doit.jsx        # 美食食譜頁面
 │   │   └── Menu.jsx        # 美食介紹頁面
@@ -51,7 +57,36 @@ src/
 │   ├── AppLayout.jsx       # 整體版型配置
 │   ├── Contact.jsx         # 聯絡我們頁面
 │   └── Home.jsx            # 首頁組件
+├── 🛠️ services/            # API 請求與非同步服務邏輯
+│   └── apiHealthPlaza.js   # 健康廣場 API
 ├── 🚀 App.jsx              # 主路由配置
 ├── 🎨 index.css            # 全域樣式
 ├── 📌 main.jsx             # 程式進入點
+└── 🏪 store.js             # 全域狀態設定
+```
+
+---
+
+## ⚡ 啟動專案
+
+前置作業：安裝 [Node.js](https://nodejs.org)。
+
+### 1. 複製專案
+
+```bash
+git clone https://github.com/kiss35195/health-plaza.git
+cd health-plaza
+```
+
+### 2. 安裝套件
+
+```bash
+npm i
+```
+
+### 3. 開啟本地開發伺服器
+
+```bash
+npm run server
+npm run dev
 ```

@@ -1,7 +1,21 @@
-function Button({ children, customClass }) {
+import { Link } from "react-router-dom";
+
+const buttonClass =
+  "rounded-full bg-lime-800 px-4 py-3 text-lime-200 hover:bg-lime-600";
+
+function Button({ children, customClass, disabled, action, to }) {
+  if (to)
+    return (
+      <Link to={to} className={`${buttonClass} ${customClass}`}>
+        {children}
+      </Link>
+    );
+
   return (
     <button
-      className={`rounded-full bg-lime-800 px-4 py-3 text-lime-200 hover:bg-lime-600 ${customClass}`}
+      className={`${buttonClass} ${customClass}`}
+      disabled={disabled}
+      onClick={action}
     >
       {children}
     </button>

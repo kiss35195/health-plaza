@@ -1,4 +1,6 @@
+import { useRouteLoaderData } from "react-router-dom";
 import CartItem from "./CartItem";
+import Loader from "../../components/Loader";
 
 const editClass =
   "grid-cols-[0.5fr_2fr_2fr_1fr_1fr] md:grid-cols-[0.5fr_1fr_2fr_2fr_0.5fr_1fr]";
@@ -7,7 +9,10 @@ const readClass =
 const sumClass = `grid items-center gap-4 border-t border-lime-700 p-2 text-center 
     grid-cols-2`;
 
-function CartList({ editType, recipes, cart }) {
+function CartList({ editType = false, cart }) {
+  const recipes = useRouteLoaderData("recipes-data");
+  if (!recipes) return <Loader />;
+
   const summaryPrice = cart.reduce(
     (sum, item) =>
       sum +
