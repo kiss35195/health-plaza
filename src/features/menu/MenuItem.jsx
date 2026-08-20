@@ -35,7 +35,12 @@ function MenuItem({ recipe, page }) {
   return (
     <li className="mt-2 flex w-full flex-col md:mt-0 md:flex-row">
       <div className="flex basis-1/2 flex-col items-end">
-        <img src={recipe.img} className="h-70 w-70 object-cover"></img>
+        <img
+          className="h-70 w-70 object-cover"
+          src={recipe.img}
+          loading="lazy"
+          decoding="async"
+        ></img>
         <p className="mt-1 text-xs text-gray-500">
           圖片來源：
           <a

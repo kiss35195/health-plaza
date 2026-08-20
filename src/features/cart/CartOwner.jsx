@@ -49,9 +49,9 @@ function CartOwner() {
 
       const data = await createOrder(newOrder);
       if (data && data.id) {
+        navigate(`/order/${data.id}`);
         dispatch(clearCart());
         triggerToast("訂單已成立", true);
-        navigate(`/order/${data.id}`);
       }
     } catch (e) {
       triggerToast("送出訂單失敗", false);

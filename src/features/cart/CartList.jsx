@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import CartItem from "./CartItem";
 import Loader from "../../components/Loader";
@@ -11,26 +12,50 @@ const sumClass = `grid items-center gap-4 border-t border-lime-700 p-2 text-cent
 
 function CartList({ editType = false, cart }) {
   const recipes = useRouteLoaderData("recipes-data");
-  if (!recipes) return <Loader />;
 
-  const summaryPrice = cart.reduce(
-    (sum, item) =>
-      sum +
-      recipes.find((recipe) => recipe.id === item.id).price * item.quantity,
-    0,
+  // 2026/8/20 改用useMemo存recipes 不用每次跑迴圈 by kiss
+  // const summaryPrice = cart.reduce(
+  //   (sum, item) =>
+  //     sum +
+  //     recipes.find((recipe) => recipe.id === item.id).price * item.quantity,
+  //   0,
+  // );
+
+  // const limitPrice = cart.reduce((sum, item) => {
+  //   const recipe = recipes.find((recipe) => recipe.id === item.id);
+  //   return (
+  //     sum +
+  //     (recipe.limitPrice > 0
+  //       ? recipe.limitPrice * item.quantity
+  //       : recipe.price * item.quantity)
+  //   );
+  // }, 0);
+  const recipeMap = useMemo(
+    () => new Map(recipes?.map((recipe) => [recipe.id, recipe]) ?? []),
+    [recipes],
   );
 
-  const limitPrice = cart.reduce((sum, item) => {
-    const recipe = recipes.find((recipe) => recipe.id === item.id);
-    return (
-      sum +
-      (recipe.limitPrice > 0
-        ? recipe.limitPrice * item.quantity
-        : recipe.price * item.quantity)
+  const { summaryPrice, limitPrice } = useMemo(() => {
+    return cart.reduce(
+      (sum, item) => {
+        const recipe = recipeMap.get(item.id);
+        if (!recipe) return sum;
+
+        const price = recipe.price * item.quantity;
+        const finalPrice =
+          (recipe.limitPrice > 0 ? recipe.limitPrice : recipe.price) *
+          item.quantity;
+        sum.summaryPrice += price;
+        sum.limitPrice += finalPrice;
+        return sum;
+      },
+      { summaryPrice: 0, limitPrice: 0 },
     );
-  }, 0);
+  }, [cart, recipeMap]);
 
   const totalPrice = limitPrice > 999 ? limitPrice : limitPrice + 60;
+
+  if (!recipes) return <Loader />;
 
   return (
     <div>
@@ -46,12 +71,13 @@ function CartList({ editType = false, cart }) {
       </div>
       <ul className="divide-y divide-lime-700">
         {cart.map((item) => {
-          const recipe = recipes.find((recipes) => recipes.id === item.id);
+          // const recipe = recipes.find((recipes) => recipes.id === item.id);
           return (
             <CartItem
               key={item.id}
               item={item}
-              recipe={recipe}
+              // recipe={recipe}
+              recipe={recipeMap.get(item.id)}
               editType={editType}
               useClass={editType ? editClass : readClass}
             />

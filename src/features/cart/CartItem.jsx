@@ -25,6 +25,7 @@ function CartItem({ item, recipe, editType = false, useClass }) {
       <img
         className="hidden h-30 w-30 object-cover md:block"
         src={recipe.img}
+        decoding="async"
       ></img>
       <p>{recipe.recipeName}</p>
       {!editType && <p className="text-right">x{item.quantity}</p>}

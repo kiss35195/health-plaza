@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import CartList from "../cart/CartList";
-import { getOrder } from "../../services/apiHealthPlaza";
+// import { getOrder } from "../../services/apiHealthPlaza";
 
 function Order() {
   const order = useLoaderData();
@@ -28,9 +28,10 @@ function Order() {
   );
 }
 
-export async function loader({ params }) {
-  const data = await getOrder(params.orderId);
-  return data;
-}
+// 2026/08/20 搬到App處理 by kiss
+// export async function loader({ params }) {
+//   const data = await getOrder(params.orderId);
+//   return data;
+// }
 
 export default Order;

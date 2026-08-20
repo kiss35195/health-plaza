@@ -1,8 +1,9 @@
+import { Suspense, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Toast from "../components/Toast";
-import { useState } from "react";
+import Loader from "../components/Loader";
 
 function AppLayout() {
   const [showToast, setShowToast] = useState(false);
@@ -27,7 +28,10 @@ function AppLayout() {
           <Toast showToast={showToast} success={success}>
             {content}
           </Toast>
-          <Outlet context={{ triggerToast }} />
+          {/* 2026/08/20 過渡畫面 by kiss */}
+          <Suspense fallback={<Loader />}>
+            <Outlet context={{ triggerToast }} />
+          </Suspense>
         </main>
       </div>
       <Footer />
