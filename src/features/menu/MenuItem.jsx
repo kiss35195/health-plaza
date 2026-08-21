@@ -36,7 +36,7 @@ function MenuItem({ recipe, page }) {
     <li className="mt-2 flex w-full flex-col md:mt-0 md:flex-row">
       <div className="flex basis-1/2 flex-col items-center md:items-end">
         <img
-          className="h-70 w-70 object-cover"
+          className="h-65 w-70 object-cover"
           src={recipe.img}
           loading="lazy"
           decoding="async"
@@ -68,7 +68,7 @@ function MenuItem({ recipe, page }) {
               <span className={limitClass}>今日限定優惠</span>
             </>
           )}
-          <p className="mb-1 text-2xl font-semibold">{recipe.recipeName}</p>
+          <p className="mb-1 text-xl font-semibold">{recipe.recipeName}</p>
           <div className="flex h-full flex-col">
             {page === "menu" && (
               <p className="py-2 md:py-5">{recipe.introduce}</p>
@@ -85,7 +85,7 @@ function MenuItem({ recipe, page }) {
               )}
               {page === "doit" &&
                 recipe.ingredients.map((ingredient, i) => (
-                  <p className="pl-2" key={i}>
+                  <p className="pl-2 text-sm" key={i}>
                     {ingredient.name} {ingredient.weight * serving}
                     {ingredient.unit}
                   </p>

@@ -60,10 +60,7 @@ function CartOwner() {
     }
   }
   return (
-    <form
-      className="my-7 rounded-2xl bg-lime-100/70 py-2"
-      onSubmit={handleSubmit}
-    >
+    <form className="rounded-2xl bg-lime-100/70 py-2" onSubmit={handleSubmit}>
       <div className="m-2 grid grid-cols-[auto_1fr] gap-2 md:grid-cols-[auto_1fr_auto_1fr]">
         <label className={labelClass}>訂購者姓名</label>
         <input

@@ -23,8 +23,8 @@ function AppLayout() {
   return (
     <div className="grid h-dvh grid-rows-[auto_1fr_auto]">
       <Header />
-      <div className="h-full bg-lime-50 tracking-wide text-lime-700">
-        <main className="relative flex h-full w-full items-center justify-center">
+      <div className="h-full overflow-y-auto bg-lime-50 tracking-wide text-lime-700">
+        <main className="relative flex h-full w-full md:items-center justify-center">
           <Toast showToast={showToast} success={success}>
             {content}
           </Toast>

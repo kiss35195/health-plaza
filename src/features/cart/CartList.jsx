@@ -8,7 +8,7 @@ const editClass =
 const readClass =
   "grid-cols-[2fr_2fr_1fr_1fr] md:grid-cols-[1fr_2fr_0.5fr_0.5fr_1fr]";
 const sumClass = `grid items-center gap-4 border-t border-lime-700 p-2 text-center 
-    grid-cols-2`;
+    grid-cols-[2fr_1fr]`;
 
 function CartList({ editType = false, cart }) {
   const recipes = useRouteLoaderData("recipes-data");
@@ -58,11 +58,11 @@ function CartList({ editType = false, cart }) {
   if (!recipes) return <Loader />;
 
   return (
-    <div>
+    <div className="text-sm md:text-base">
       <div
         className={`grid items-center gap-4 border-b border-b-lime-700 p-2 text-center ${editType ? editClass : readClass}`}
       >
-        {editType && <div>刪除</div>}
+        {editType && <div></div>}
         <div className="hidden w-30 md:block">圖片</div>
         <div>名稱</div>
         <div className={editType ? "text-center" : "text-right"}>數量</div>
