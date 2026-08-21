@@ -6,6 +6,14 @@
 
 ---
 
+## 🎞️ 示範影片
+
+| 🖥️ 桌面版體驗 | 📱 行動版體驗 |
+| :---: | :---: |
+| <video src="https://github.com/user-attachments/assets/7c738d07-7ac0-4aa0-a83c-61c9aa8e05eb" width="100%" controls></video> | <video src="https://github.com/user-attachments/assets/f5baad3c-aa19-4c08-ba2a-21dcaacc93dc" width="100%" controls></video> 
+
+---
+
 ## 🌟 專案功能
 
 - 🥦 1. 精選餐點與食譜
