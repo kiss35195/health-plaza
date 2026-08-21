@@ -34,7 +34,7 @@ function MenuItem({ recipe, page }) {
 
   return (
     <li className="mt-2 flex w-full flex-col md:mt-0 md:flex-row">
-      <div className="flex basis-1/2 flex-col items-end">
+      <div className="flex basis-1/2 flex-col items-center md:items-end">
         <img
           className="h-70 w-70 object-cover"
           src={recipe.img}
